@@ -1,5 +1,8 @@
 venv/**/*
 .env
+
+venv/**/*
+.env
 _pycache__/**/*
 __pycache__/**/*
 
