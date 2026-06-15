@@ -1,11 +1,10 @@
-venv/**/*
+venv/
+backend/venv/
 .env
-
-venv/**/*
-.env
-_pycache__/**/*
-__pycache__/**/*
-
+backend/.env
+__pycache__/
+*.pyc
+.pytest_cache/
 
 
 
