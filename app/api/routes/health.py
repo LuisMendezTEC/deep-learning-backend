@@ -1,19 +1,21 @@
+from __future__ import annotations
+
 """
 app/api/routes/health.py
 Endpoints de diagnóstico del sistema.
 
-GET /health          → estado general de la API
-GET /health/gpu      → diagnóstico completo de GPU y librerías de Deep Learning
+GET /api/v1/health/     → estado general de la API
+GET /api/v1/health/gpu  → diagnóstico completo de GPU y librerías de Deep Learning
 """
 import platform
 import sys
-from typing import Any
+from typing import Any, Optional
 
 import torch
 from fastapi import APIRouter
 from pydantic import BaseModel
 
-router = APIRouter(prefix="/health", tags=["Health"])
+router = APIRouter()
 
 
 # --- Schemas de respuesta ---
@@ -39,8 +41,8 @@ class GpuDiagnosticsResponse(BaseModel):
     platform: str
     torch_version: str
     cuda_available: bool
-    cuda_version: str | None
-    cudnn_version: str | None
+    cuda_version: Optional[str]
+    cudnn_version: Optional[str]
     active_device: str
     gpu_count: int
     gpus: list[GpuDevice]

@@ -1,6 +1,9 @@
+from __future__ import annotations
+
 import logging
 import time
 from pathlib import Path
+from typing import Optional
 
 import torch
 from torch import nn
@@ -15,8 +18,8 @@ class UNetInferenceModel:
         self.checkpoint_path = checkpoint_path
         self.device = torch.device(device)
         self.backbone = backbone
-        self.model: nn.Module | None = None
-        self.load_error: str | None = None
+        self.model: Optional[nn.Module] = None
+        self.load_error: Optional[str] = None
         self._load()
 
     @property

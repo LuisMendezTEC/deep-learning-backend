@@ -1,10 +1,12 @@
-from enum import StrEnum
-from typing import Any
+from __future__ import annotations
+
+from enum import Enum
+from typing import Any, Optional
 
 from fastapi import HTTPException
 
 
-class ErrorCode(StrEnum):
+class ErrorCode(str, Enum):
     INVALID_JSON = "INVALID_JSON"
     NON_SNAKE_CASE_FIELD = "NON_SNAKE_CASE_FIELD"
     INVALID_IMAGE_FORMAT = "INVALID_IMAGE_FORMAT"
@@ -34,8 +36,8 @@ ERROR_MESSAGES: dict[ErrorCode, str] = {
 def api_error(
     code: ErrorCode,
     status_code: int,
-    detail: Any | None = None,
-    message: str | None = None,
+    detail: Optional[Any] = None,
+    message: Optional[str] = None,
 ) -> HTTPException:
     return HTTPException(
         status_code=status_code,

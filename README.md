@@ -13,7 +13,6 @@ El frontend nunca llama directamente a los modelos. El flujo es:
 ## Ejecutar
 
 ```bash
-cd backend
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
@@ -139,6 +138,5 @@ Mientras falten artefactos reales, los endpoints devuelven `503 MODEL_NOT_LOADED
 ## Tests
 
 ```bash
-cd backend
 pytest tests/ -v --tb=short
 ```

@@ -1,7 +1,10 @@
+from __future__ import annotations
+
 import json
 import logging
 import time
 from pathlib import Path
+from typing import Optional
 
 import torch
 from torch import nn
@@ -50,10 +53,10 @@ class CTCInferenceModel:
         self.vocab_path = vocab_path
         self.idx2char_path = idx2char_path
         self.device = torch.device(device)
-        self.model: nn.Module | None = None
+        self.model: Optional[nn.Module] = None
         self.idx2char: dict[int, str] = {}
         self.blank_id = 0
-        self.load_error: str | None = None
+        self.load_error: Optional[str] = None
         self._load()
 
     @property
@@ -107,9 +110,9 @@ class CTCInferenceModel:
 
         chars: list[str] = []
         confidence_values: list[float] = []
-        previous_id: int | None = None
+        previous_id: Optional[int] = None
 
-        for token_id, token_prob in zip(token_ids, token_probs, strict=False):
+        for token_id, token_prob in zip(token_ids, token_probs):
             if token_id != self.blank_id and token_id != previous_id:
                 chars.append(self.idx2char.get(token_id, ""))
                 confidence_values.append(float(token_prob))

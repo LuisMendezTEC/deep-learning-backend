@@ -1,9 +1,12 @@
+from __future__ import annotations
+
 import io
 import json
 import logging
 import re
 import tempfile
 from pathlib import Path
+from typing import Optional
 
 import torch
 import torchaudio
@@ -77,7 +80,7 @@ class AudioService:
         }
 
     def _load_audio(self, audio_bytes: bytes) -> tuple[torch.Tensor, int]:
-        last_error: Exception | None = None
+        last_error: Optional[Exception] = None
         for suffix in SUPPORTED_SUFFIXES:
             with tempfile.NamedTemporaryFile(suffix=suffix) as temp_file:
                 temp_file.write(audio_bytes)

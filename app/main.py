@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 import logging
-from json import JSONDecodeError
+import json
 from contextlib import asynccontextmanager
 from pathlib import Path
  
@@ -89,12 +91,13 @@ def create_app() -> FastAPI:
     )
 
     @app.middleware("http")
-    async def enforce_snake_case_json(request: Request, call_next):
+    async def enforce_snake_case_json(request: Request, call_next):  # type: ignore[no-untyped-def]
         content_type = request.headers.get("content-type", "")
         if "application/json" in content_type:
+            body = await request.body()
             try:
-                payload = await request.json()
-            except JSONDecodeError as exc:
+                payload = json.loads(body) if body else None
+            except json.JSONDecodeError as exc:
                 return JSONResponse(
                     status_code=status.HTTP_400_BAD_REQUEST,
                     content={
@@ -116,6 +119,11 @@ def create_app() -> FastAPI:
                         "detail": violations,
                     },
                 )
+
+            async def receive() -> dict[str, object]:
+                return {"type": "http.request", "body": body, "more_body": False}
+
+            request._receive = receive  # noqa: SLF001 - restore body for downstream FastAPI parsing.
 
         return await call_next(request)
  
