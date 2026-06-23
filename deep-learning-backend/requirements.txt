@@ -1,0 +1,56 @@
+# =============================================================================
+# Proyecto Programado II — Deep Learning Backend
+# Entorno: Python 3.11 | CUDA 12.1
+#
+# Instalación en dos pasos (ver README.md):
+#   1. pip install -r requirements.txt
+#   2. Para PyTorch con soporte GPU CUDA 12.1:
+#      pip install torch==2.3.1+cu121 torchaudio==2.3.1+cu121 torchvision==0.18.1+cu121 \
+#          --extra-index-url https://download.pytorch.org/whl/cu121
+#
+#   Si tu GPU usa CUDA 11.8 cambia cu121 → cu118 en el comando anterior.
+#   Si solo tienes CPU (para pruebas sin GPU):
+#      pip install torch==2.3.1 torchaudio==2.3.1 torchvision==0.18.1
+# =============================================================================
+
+# --- API Framework ---
+fastapi==0.111.1
+uvicorn[standard]==0.30.3
+python-multipart==0.0.9          # para recibir archivos (imágenes, audio)
+pydantic==2.7.4
+pydantic-settings==2.3.4
+
+# --- Deep Learning (CPU placeholder — reemplazar con versión CUDA en producción) ---
+# torch, torchaudio y torchvision se instalan por separado (ver arriba)
+segmentation-models-pytorch==0.3.4   # U-Net con backbones ResNet/EfficientNet
+timm==0.9.7                           # backbones ImageNet pretrained
+
+# --- Computer Vision ---
+opencv-python-headless==4.10.0.84
+albumentations==1.4.10                # augmentación de imágenes
+Pillow>=10.4.0
+scikit-learn==1.5.1
+torchmetrics==1.4.0                   # IoU, Dice Score integrados
+
+# --- Audio / ASR ---
+librosa==0.10.2.post1
+soundfile==0.12.1
+jiwer==3.0.4                          # cálculo de WER y CER
+torchaudio==2.3.1
+torchvision==0.18.1
+torch==2.3.1
+
+# --- Datos y utilidades ---
+numpy==1.26.4
+pandas==2.2.2
+matplotlib==3.9.1
+tqdm==4.66.4
+python-dotenv==1.0.1
+
+# --- Logging y experimentos ---
+tensorboard==2.17.0
+
+# --- Testing ---
+httpx==0.27.0                         # cliente para tests de FastAPI
+pytest==8.2.2
+pytest-asyncio==0.23.7

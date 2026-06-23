@@ -1,10 +1,15 @@
-venv/
-.env
+# Python
+.venv/
 __pycache__/
 *.pyc
-.pytest_cache/
+logs/
 
+# Node
+node_modules/
 
+# Modelos grandes
+*.pth
 
-
-
+# Env
+.env
+.env.local
